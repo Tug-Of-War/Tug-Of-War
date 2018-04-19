@@ -29,10 +29,14 @@ export default new Vuex.Store({
       console.log(state.side)
     },
     counterA: function (state, payload) {
+      console.log(state.counter, 'counter A sebelum')
       state.counter++
+      console.log(state.counter, 'counter A')
     },
     counterB: function (state, payload) {
+      console.log(state.counter, 'counter B sebelum')
       state.counter--
+      console.log(state.counter, 'counter B')
     },
     getCounter: function (state, payload) {
       state.counter = payload
@@ -50,12 +54,16 @@ export default new Vuex.Store({
       localStorage.setItem('side', state.side)
       localStorage.setItem('username', state.username)
       localStorage.setItem('room', state.room)
-      // firebase.database().ref().child('room/' + state.room + '/counter').set({
-      //   counter: 0
-      // })
+      firebase.database().ref('room/' + state.room + '/counter').set({
+        counter: 0
+      })
       firebase.database().ref().child('room/' + state.room + '/' + state.username).set({
         username: state.username,
         side: state.side
+      })
+      firebase.database().ref('room/' + state.room + '/counter').on('value', function (snapshot) {
+        console.log(snapshot.val(), 'ini snap')
+        state.counter = snapshot.val().counter
       })
     },
     setZero: function (context, payload) {

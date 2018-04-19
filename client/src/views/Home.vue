@@ -18,6 +18,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
@@ -28,14 +29,7 @@ export default {
     return {
       username: '',
       side: '',
-      room: '',
-      counter: 0
-    }
-  },
-  watch: {
-    counter: function () {
-      this.checkWinner()
-      this.counter = this.$store.state.counter
+      room: ''
     }
   },
   methods: {
@@ -52,14 +46,14 @@ export default {
       this.$store.dispatch('startGame')
     },
     tapA: function () {
+      this.$store.dispatch('getCounter')
       this.$store.dispatch('counterA')
       // this.$store.commit('winner')
-      this.$store.dispatch('getCounter')
     },
     tapB: function () {
+      this.$store.dispatch('getCounter')
       this.$store.dispatch('counterB')
       // this.$store.commit('winner')
-      this.$store.dispatch('getCounter')
       // this.counter = this.$store.state.counter
     },
     checkWinner: function () {
@@ -71,6 +65,10 @@ export default {
         alert('winner b')
       }
     }
-  }
+  },
+  computed: mapState([
+    // map this.count to store.state.count
+    'counter'
+  ])
 }
 </script>

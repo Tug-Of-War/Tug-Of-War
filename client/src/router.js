@@ -24,7 +24,7 @@ export default new Router({
       path: '/lobby',
       name: 'lobby',
       component: Lobby
-    }, 
+    },
     {
       path: '/frontpage',
       name: 'frontpage',
