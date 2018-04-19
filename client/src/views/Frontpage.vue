@@ -9,7 +9,7 @@
             <p>(press 'enter' to to enter room)</p>
             <!-- <button class="textSubmit" @click="enterRoom()">ENTER</button> -->
         </form>
-        <marquee direction="down" width="250" height="200" behavior="alternate">
+        <marquee direction="down" width="250" height="100" behavior="alternate">
             <marquee behavior="alternate">
                 MAY THE FORCE BE WITH YOU<span style="color:dodgerblue;">:)</span>
             </marquee>
@@ -57,7 +57,7 @@ export default {
 }
 
 .heading {
-    font-size: 45px;
+    font-size: 100px;
 }
 
 #textInputContainer {
