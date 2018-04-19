@@ -28,33 +28,58 @@ export default new Vuex.Store({
       state.side = payload
       console.log(state.side)
     },
-    counter: function (state, payload) {
+    counterA: function (state, payload) {
+      state.counter++
+    },
+    counterB: function (state, payload) {
+      state.counter--
+    },
+    getCounter: function (state, payload) {
       state.counter = payload
     },
     winner: function (state, payload) {
-      if (state.counter === 10) {
+      if (state.counter > 10) {
         state.winner = 'a'
-      } else if (state.counter === -10) {
+      } else if (state.counter < -10) {
         state.winner = 'b'
       }
     }
   },
   actions: {
     startGame: function ({state, commit}, payload) {
+      localStorage.setItem('side', state.side)
+      localStorage.setItem('username', state.username)
+      localStorage.setItem('room', state.room)
+      // firebase.database().ref().child('room/' + state.room + '/counter').set({
+      //   counter: 0
+      // })
       firebase.database().ref().child('room/' + state.room + '/' + state.username).set({
         username: state.username,
         side: state.side
       })
-      localStorage.setItem('side', state.side)
-      localStorage.setItem('username', state.username)
-      localStorage.setItem('room', state.room)
     },
-    counter: function ({state, commit}, payload) {
+    setZero: function (context, payload) {
+      // let room = localStorage.getItem('room')
+    },
+    counterA: function ({state, commit}, payload) {
+      commit('counterA')
       let room = localStorage.getItem('room')
-      firebase.database().ref().child('room/' + room).update({
-        counter: payload
+      firebase.database().ref().child('room/' + room + '/counter').update({
+        counter: state.counter
       })
-      commit('counter', payload)
+    },
+    counterB: function ({state, commit}, payload) {
+      commit('counterB')
+      let room = localStorage.getItem('room')
+      firebase.database().ref().child('room/' + room + '/counter').update({
+        counter: state.counter
+      })
+    },
+    getCounter: function (context, payload) {
+      let room = localStorage.getItem('room')
+      firebase.database().ref().child('room/' + room + '/counter').on('value', function (snapshot) {
+        context.commit('getCounter', snapshot.val().counter)
+      })
     }
   }
 })

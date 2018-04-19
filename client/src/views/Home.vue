@@ -35,6 +35,7 @@ export default {
   watch: {
     counter: function () {
       this.checkWinner()
+      this.counter = this.$store.state.counter
     }
   },
   methods: {
@@ -51,18 +52,15 @@ export default {
       this.$store.dispatch('startGame')
     },
     tapA: function () {
-      this.counter++
-      this.$store.dispatch('counter', this.counter)
-      this.$store.commit('winner')
-      console.log('======== root', this.counter)
-      console.log('======== state', this.$store.state.counter)
+      this.$store.dispatch('counterA')
+      // this.$store.commit('winner')
+      this.$store.dispatch('getCounter')
     },
     tapB: function () {
-      this.counter--
-      this.$store.dispatch('counter', this.counter)
-      this.$store.commit('winner')
-      console.log('========', this.counter)
-      console.log('======== state', this.$store.state.counter)
+      this.$store.dispatch('counterB')
+      // this.$store.commit('winner')
+      this.$store.dispatch('getCounter')
+      // this.counter = this.$store.state.counter
     },
     checkWinner: function () {
       if (this.counter === 10) {
