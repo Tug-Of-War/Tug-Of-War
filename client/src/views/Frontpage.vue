@@ -26,17 +26,17 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'frontpage',
   data () {
-      return {
-          nickname: ''
-      }
+    return {
+      nickname: ''
+    }
   },
   components: {
     HelloWorld
   },
   methods: {
-      enterRoom () {
-          console.log(this.nickname)
-      }
+    enterRoom () {
+      console.log(this.nickname)
+    }
   }
 }
 </script>
