@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Lobby from './views/Lobby.vue'
 import Frontpage from './views/Frontpage.vue'
+import Gamepage from './views/Gamepage.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/frontpage',
       name: 'frontpage',
       component: Frontpage
+    },
+    {
+      path: '/gamepage',
+      name: 'gamepage',
+      component: Gamepage
     }
   ]
 })
