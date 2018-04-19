@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Lobby from './views/Lobby.vue'
+import Frontpage from './views/Frontpage.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/lobby',
       name: 'lobby',
       component: Lobby
+    }, 
+    {
+      path: '/frontpage',
+      name: 'frontpage',
+      component: Frontpage
     }
   ]
 })
