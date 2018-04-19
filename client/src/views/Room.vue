@@ -48,8 +48,8 @@ export default {
             user: 'Joko',
             choose_team: true,
             start_game: false,
-            team1:['Rio','Roy','Rex','Ronasdasdasdasdasdasdasda','Raid'],
-            team2:['Jax','June','Jade','Joy'],
+            team1:['Rio','Roy','Rex','Ronasdasdasdasdasdasdasda'],
+            team2:['June','Jade','Joy'],
         }
     },
 
@@ -66,8 +66,8 @@ export default {
         },
 
          truncateName: function(name){
-            if(name.length > 6){
-                name = name.slice(0,6) + '...'
+            if(name.length > 4){
+                name = name.slice(0,4) + '..'
                 return name
             }else{
                 return name
