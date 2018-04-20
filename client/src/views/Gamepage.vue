@@ -140,8 +140,4 @@ img {
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 402c2a97970400eae1a9e70e52fdaffe43cb8c73
 </style>
