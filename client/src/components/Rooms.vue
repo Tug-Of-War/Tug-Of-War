@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card border-success mb-3" style="max-width: 18rem; margin: 20px;" v-for="(room, index) in rooms" :key="index" :class="{borderdanger: countMember(room.member)}">
+    <div class="card border-success mb-3" style="max-width: 18rem; margin: 20px;" v-for="(room, index) in allRooms" :key="index" :class="{borderdanger: countMember(room.member)}">
       <div class="card-header bg-transparent border-success" :class="{borderdanger: countMember(room.member)}">Room Master</div>
       <div class="card-body text-success" :class="{textdanger: countMember(room.member)}">
         <h5 class="card-title">Success card title</h5>
@@ -38,7 +38,7 @@ export default {
   },
   computed: mapState([
     // map this.count to store.state.count
-    'rooms'
+    'allRooms'
   ]),
   watch: {
     isFull () {
