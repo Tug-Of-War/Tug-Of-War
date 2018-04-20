@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="card border-success mb-3" style="max-width: 18rem; margin: 20px;" v-for="(room, index) in allRooms" :key="index" :class="{borderdanger: countMember(room.member)}">
-      <div class="card-header bg-transparent border-success" :class="{borderdanger: countMember(room.member)}">Room Master</div>
+      <div class="card-header bg-transparent border-success" :class="{borderdanger: countMember(room.member)}">{{room.master}}</div>
       <div class="card-body text-success" :class="{textdanger: countMember(room.member)}">
-        <h5 class="card-title">Success card title</h5>
+        <h5 class="card-title">{{room.names}}</h5>
         <h6><span class="card-text">{{room.member}}</span> / 10</h6>
       </div>
       <div class="card-footer bg-transparent border-success" :class="{borderdanger: countMember(room.member)}">
@@ -26,7 +26,8 @@ export default {
   },
   methods: {
     join_grup (group) {
-      this.$store.commit('joinGroup', group)
+      localStorage.setItem('ruangan', group.names)
+      this.$router.push('/room')
     },
     countMember (member) {
       if (member < 10 && member > 0) {

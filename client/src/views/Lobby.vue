@@ -20,7 +20,7 @@
             </div>
             <div class="modal-body">
               <div class="input-group mb-3">
-                <input type="text" v-model="newRoomName" class="form-control" placeholder="Enter your username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" v-model="newRoomName" class="form-control" placeholder="Enter your new room" aria-label="Recipient's new roomname" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" @click=add_room>Button</button>
                 </div>
@@ -51,8 +51,17 @@ export default {
   methods: {
     add_room () {
       let newRoom = this.newRoomName
+      localStorage.setItem('ruangan', newRoom)
       this.$store.dispatch('addRoom', newRoom)
+      this.$router.push('/room')
+    },
+    getData: function () {
+      this.$store.dispatch('getAllDatas')
     }
+  },
+  created () {
+    console.log('----')
+    this.getData()
   }
 }
 </script>
