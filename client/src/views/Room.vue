@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center" v-if="!choose_team" style="margin-bottom:10%;">
-        <button class="button btn-warning btn-lg">Quit Room</button>
+        <button class="button btn-warning btn-lg" v-if="!start_game">Quit Room</button>
     </div>
   </div>
   
