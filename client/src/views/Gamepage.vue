@@ -1,5 +1,6 @@
 <template>
-  <div class="gamepage">
+<div>
+  <div class="gamepage d-none d-md-block">
     <!-- <img src="../assets/logo.png"> -->
     <div class="col-md-12">
         <h1 class="heading">TUG OF WAR</h1>
@@ -10,23 +11,31 @@
         </div>
     </div>
     <div class="progress-tug progress col-md-8 offset-md-2">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: startScoreA + scoreA + '%' }" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: startScoreB + scoreB + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: scoreA + counter + '%'}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: scoreB - counter + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
     </div>
     <!-- <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button> -->
     <!-- <button @click="buttonB()">FIGHT B</button> -->
-
     <div class="col-md-12">
-        <i class="fas fa-plus-square buttonA col-md-4" @click="buttonA()"></i>
-        <i class="fas fa-plus-square buttonB col-md-4" @click="buttonB()"></i>
+    <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
+    <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
+  {{ counter }}
     </div>
-
   </div>
+  <div class="d-block d-md-none">
+  {{ counter }}
+    <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
+    <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
+    <!-- <button @click="buttonA()" v-if="side==='a'"><img id="button" src="../assets/image/button-blue.png" alt=""></button>
+    <button @click="buttonB()" v-if="side==='b'"><img id="button" src="../assets/image/button-red.png" alt=""></button> -->
+  </div>
+</div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'gamepage',
@@ -37,6 +46,7 @@ export default {
       startScoreB: 0,
       scoreA: 50,
       scoreB: 50,
+      side: '',
       statusWiggle: true,
       isShake: 'shake' + 0.5 + 's',
       isInfinite: 'infinite'
@@ -45,23 +55,46 @@ export default {
   components: {
     HelloWorld
   },
+  created () {
+    this.side = localStorage.getItem('side')
+    this.$store.dispatch('getCounter')
+  },
   methods: {
     enterRoom () {
       console.log(this.nickname)
     },
     buttonA () {
-      this.scoreA += 1
-      this.scoreB -= 1
-      console.log('ini dari button A point A:', this.scoreA)
-      console.log('ini dari button A point B:', this.scoreB)
+      // this.scoreA += 1
+      // this.scoreB -= 1
+      this.$store.dispatch('getCounter')
+      this.$store.dispatch('counterA')
+      console.log(this.counter)
+      this.startScoreA = this.$store.state.counter
+      this.startScoreB = 0 - this.$store.state.counter
+      console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
+      console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
+
+      if (counter >= 50) {
+        alert('Team A (BLUE) WINS !')
+      } else if (counter <= -50) {
+        alert('Team B (RED) WINS !')
+      }
+
     },
     buttonB () {
-      this.scoreA -= 1
-      this.scoreB += 1
-      console.log('ini dari button B point A:', this.scoreA)
-      console.log('ini dari button B point B:', this.scoreB)
+      // this.scoreA -= 1
+      // this.scoreB += 1
+      this.$store.dispatch('getCounter')
+      this.$store.dispatch('counterB')
+      this.startScoreA = this.$store.state.counter
+      this.startScoreB = 0 - this.$store.state.counter
+      console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
+      console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
     }
-  }
+  },
+  computed: mapState([
+    'counter'
+  ])
 }
 </script>
 
@@ -85,6 +118,10 @@ img {
 
 .progress-tug {
     height:30px
+}
+
+#button {
+  max-width: 15rem;
 }
 
 .buttonA {
