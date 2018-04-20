@@ -5,7 +5,7 @@
         <h1 class="heading">Tug Of War</h1>
         <form>
             <p>This is the tale of...</p>
-            <input v-model="nickname" id="textInput" style="width: 248.64px; height: 32px; font-size: 28.8px; padding-left: 5px; padding-right: 5px;" @keyup.enter="enterNickname()"/>
+            <input class="animated fadeInDownBig" v-model="nickname" id="textInput" style="width: 248.64px; height: 32px; font-size: 28.8px; padding-left: 5px; padding-right: 5px;" @keyup.enter="enterNickname()"/>
             <p>(press 'enter' to to enter room)</p>
             <!-- <button class="textSubmit" @click="enterRoom()">ENTER</button> -->
         </form>
