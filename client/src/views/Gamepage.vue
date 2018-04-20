@@ -17,8 +17,8 @@
     <!-- <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button> -->
     <!-- <button @click="buttonB()">FIGHT B</button> -->
     <div class="col-md-12">
-    <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
-    <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
+    <!-- <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i> -->
+    <!-- <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i> -->
   <!-- {{ counter }} -->
     </div>
   </div>
