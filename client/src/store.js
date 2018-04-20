@@ -24,6 +24,7 @@ export default new Vuex.Store({
     },
     addUser: function (state, payload) {
       state.username = payload
+      localStorage.setItem('player', payload)
       console.log(state.username)
     },
     selectSide: function (state, payload) {
@@ -59,6 +60,12 @@ export default new Vuex.Store({
       console.log('ini payload', payload)
       state.allRooms = payload
       // state.allPlayers.push(payload)
+    },
+    updatedRoom: function (state, payload) {
+      let index = state.allRooms.findIndex(room => room.names === payload.names)
+      state.allRooms[index] = payload
+      state.allRooms.splice(index, 1, payload)
+      console.log(state.allRooms, 'in hasilnya')
     }
   },
   actions: {
@@ -121,23 +128,58 @@ export default new Vuex.Store({
       context.commit('addUser', payload)
     },
     addRoom: function (context, payload) {
+      let masterPlayer = localStorage.getItem('player', payload)
       firebase.database().ref('allrooms/' + payload).set({
-        username: payload
+        names: payload,
+        master: masterPlayer,
+        member: 1
       })
       let getrooms = []
       firebase.database().ref().child('/allrooms').on('value', function (snapshot) {
-        // snapshot.val().forEach(element => {
-        //   getrooms.push(element.username)
         snapshot.forEach((childSnapshot) => {
           let childData = childSnapshot.val()
+          childData.member = 1
           getrooms.push(childData)
-          console.log(childSnapshot.val(), 'in snap shot')
         })
         console.log('ini dari actions', getrooms)
         context.commit('getAllRooms', getrooms)
         getrooms = []
       })
       context.commit('addRoom', payload)
+    },
+    getAllDatas: function (context) {
+      let getplayers = []
+      firebase.database().ref('allplayers/').on('value', function (snapshot) {
+        snapshot.forEach((childSnapshot) => {
+          let childData = childSnapshot.val()
+          childData.member = 1
+          getplayers.push(childData)
+        })
+        context.commit('getAllPlayers', getplayers)
+        getrooms = []
+      })
+      let getrooms = []
+      firebase.database().ref('allrooms/').on('value', function (snapshot) {
+        snapshot.forEach((childSnapshot) => {
+          let childData = childSnapshot.val()
+          childData.member = 1
+          getrooms.push(childData)
+        })
+        context.commit('getAllRooms', getrooms)
+        getrooms = []
+      })
+    },
+    joinGroup: function (context, payload) {
+      let groupName = payload.names
+      let getRoomData = context.state.allRooms.filter(room => room.names === groupName)[0]
+      firebase.database().ref('allrooms/' + getRoomData.names).update({
+        names: getRoomData.names,
+        member: getRoomData.member + 1
+      })
+      firebase.database().ref('allrooms/' + groupName).once('value', function (snapshot) {
+        console.log(snapshot.val())
+        context.commit('updatedRoom', snapshot.val())
+      })
     }
   }
 })
