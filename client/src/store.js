@@ -15,7 +15,9 @@ export default new Vuex.Store({
     counter: 0,
     winner: '',
     allPlayers: [],
-    allRooms: []
+    allRooms: [],
+    teamA: [],
+    teamB: []
   },
   mutations: {
     addRoom: function (state, payload) {
@@ -66,6 +68,12 @@ export default new Vuex.Store({
       state.allRooms[index] = payload
       state.allRooms.splice(index, 1, payload)
       console.log(state.allRooms, 'in hasilnya')
+    },
+    setTeamA: function (state, payload) {
+      state.teamA = payload
+    },
+    setTeamB: function (state, payload) {
+      state.teamB = payload
     }
   },
   actions: {
@@ -132,7 +140,9 @@ export default new Vuex.Store({
       firebase.database().ref('allrooms/' + payload).set({
         names: payload,
         master: masterPlayer,
-        member: 1
+        member: 1,
+        a: ['dummy'],
+        b: ['dummy']
       })
       let getrooms = []
       firebase.database().ref().child('/allrooms').on('value', function (snapshot) {
@@ -179,6 +189,51 @@ export default new Vuex.Store({
       firebase.database().ref('allrooms/' + groupName).once('value', function (snapshot) {
         console.log(snapshot.val())
         context.commit('updatedRoom', snapshot.val())
+      })
+    },
+    chooseTeam: function (context, payload) {
+      console.log(payload, 'ini hasilnya')
+      firebase.database().ref('allrooms/' + payload.room).once('value', function (snapshot) {
+        console.log(snapshot.val(), 'in pa')
+        if (payload.side === 'a') {
+          let newArray = snapshot.val().a
+          newArray.push(payload.username)
+          firebase.database().ref('allrooms/' + payload.room).update({
+            a: newArray
+          })
+          context.commit('updatedRoom', payload.room)
+        } else {
+          let newArray = snapshot.val().b
+          newArray.push(payload.username)
+          firebase.database().ref('allrooms/' + payload.room).update({
+            b: newArray
+          })
+          context.commit('updatedRoom', payload.room)
+        }
+      })
+    },
+    setTeamA: function (context, payload) {
+      console.log('weeeeee', payload)
+      firebase.database().ref('/allrooms/' + payload.room + '/a').on('value', function (snapshot) {
+        let teamA = []
+        console.log('wuuuuuu', snapshot.val())
+        snapshot.forEach((childSnapshot) => {
+          teamA.push(childSnapshot)
+        })
+        console.log('weeqqqqqq', teamA)
+        context.commit('setTeamA', teamA)
+      })
+    },
+    setTeamB: function (context, payload) {
+      console.log('weeeeee', payload)
+      firebase.database().ref('/allrooms/' + payload.room + '/b').on('value', function (snapshot) {
+        let teamB = []
+        console.log('wuuuuuu', snapshot.val())
+        snapshot.forEach((childSnapshot) => {
+          teamB.push(childSnapshot)
+        })
+        console.log('weeqqqqqq', teamB)
+        context.commit('setTeamB', teamB)
       })
     }
   }

@@ -51,7 +51,9 @@ export default {
   methods: {
     add_room () {
       let newRoom = this.newRoomName
+      localStorage.setItem('ruangan', newRoom)
       this.$store.dispatch('addRoom', newRoom)
+      this.$router.push('/room')
     },
     getData: function () {
       this.$store.dispatch('getAllDatas')

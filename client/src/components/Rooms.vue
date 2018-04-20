@@ -26,7 +26,8 @@ export default {
   },
   methods: {
     join_grup (group) {
-      this.$store.dispatch('joinGroup', group)
+      localStorage.setItem('ruangan', group.names)
+      this.$router.push('/room')
     },
     countMember (member) {
       if (member < 10 && member > 0) {
