@@ -6,18 +6,25 @@
         <h1 class="heading">TUG OF WAR</h1>
     </div>
     <div class="image-tug col-md-12">
-        <img src="../assets/image/tow1.gif" />
+        <div v-if="statusWiggle == true">
+            <img src="../assets/image/tow1.gif" />
+        </div>
     </div>
     <div class="progress-tug progress col-md-8 offset-md-2">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: startScoreA + scoreA + '%' }" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: startScoreB + scoreB + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
     </div>
-    <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button>
-    <button @click="buttonB()">FIGHT B</button>
+    <!-- <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button> -->
+    <!-- <button @click="buttonB()">FIGHT B</button> -->
+    <div class="col-md-12">
+
+    </div>
   </div>
   <div class="d-block d-md-none">
-    <button @click="buttonA()" v-if="side==='a'"><img id="button" src="../assets/image/button-blue.png" alt=""></button>
-    <button @click="buttonB()" v-if="side==='b'"><img id="button" src="../assets/image/button-red.png" alt=""></button>
+    <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
+    <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
+    <!-- <button @click="buttonA()" v-if="side==='a'"><img id="button" src="../assets/image/button-blue.png" alt=""></button>
+    <button @click="buttonB()" v-if="side==='b'"><img id="button" src="../assets/image/button-red.png" alt=""></button> -->
   </div>
 </div>
 </template>
@@ -36,7 +43,10 @@ export default {
       startScoreB: 0,
       scoreA: 50,
       scoreB: 50,
-      side: ''
+      side: '',
+      statusWiggle: true,
+      isShake: 'shake' + 0.5 + 's',
+      isInfinite: 'infinite'
     }
   },
   components: {
@@ -89,6 +99,11 @@ export default {
     margin-top: 10px;
 }
 
+img {
+    height: auto; 
+    width: auto;
+}
+
 .progress-tug {
     height:30px
 }
@@ -97,4 +112,32 @@ export default {
   max-width: 15rem;
 }
 
+.buttonA {
+    font-size: 250px;
+    color: dodgerblue;
+}
+
+.buttonB {
+    font-size: 250px;
+    color: red;
+}
+
+.buttonA:hover, .buttonB:hover, img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
 </style>
