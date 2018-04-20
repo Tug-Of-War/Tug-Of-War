@@ -79,7 +79,7 @@ export default {
       } else if (counter <= -50) {
         alert('Team B (RED) WINS !')
       }
-
+      
     },
     buttonB () {
       // this.scoreA -= 1
@@ -152,5 +152,4 @@ img {
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-
 </style>
