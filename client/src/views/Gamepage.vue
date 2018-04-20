@@ -73,6 +73,13 @@ export default {
       this.startScoreB = 0 - this.$store.state.counter
       console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
       console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
+
+      if (counter >= 50) {
+        alert('Team A (BLUE) WINS !')
+      } else if (counter <= -50) {
+        alert('Team B (RED) WINS !')
+      }
+      
     },
     buttonB () {
       // this.scoreA -= 1
