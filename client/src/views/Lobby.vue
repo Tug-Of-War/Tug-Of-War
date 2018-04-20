@@ -70,18 +70,15 @@ export default {
 
 .container-lobby {
   display: flex;
-  border: 3px solid red;
   flex-wrap: wrap;
 }
 
 .container-players {
-  border: 3px solid blue;
   align-self: flex-start;
   flex-basis: auto;
 }
 
 .container-rooms {
-  border: 3px solid red;
   align-self: flex-start;
   display: flex;
   flex-wrap: wrap;

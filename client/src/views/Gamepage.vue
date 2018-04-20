@@ -81,7 +81,6 @@ export default {
         console.log('Team B (RED) WINS !')
         alert('Team B (RED) WINS !')
       }
-      
     },
     buttonB () {
       // this.scoreA -= 1
@@ -92,7 +91,6 @@ export default {
       this.startScoreB = 0 - this.$store.state.counter
       console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
       console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
-
       if (this.counter >= 50) {
         console.log('Team A (BLUE) WINS !')
         alert('Team A (BLUE) WINS !')
@@ -100,7 +98,6 @@ export default {
         console.log('Team B (RED) WINS !')
         alert('Team B (RED) WINS !')
       }
-
     }
   },
   computed: mapState([
