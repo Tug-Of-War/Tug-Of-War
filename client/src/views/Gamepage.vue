@@ -19,11 +19,11 @@
     <div class="col-md-12">
     <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
     <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
-  {{ counter }}
+  <!-- {{ counter }} -->
     </div>
   </div>
   <div class="d-block d-md-none">
-  {{ counter }}
+  <!-- {{ counter }} -->
     <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
     <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
     <!-- <button @click="buttonA()" v-if="side==='a'"><img id="button" src="../assets/image/button-blue.png" alt=""></button>
@@ -74,9 +74,11 @@ export default {
       console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
       console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
 
-      if (counter >= 50) {
+      if (this.counter >= 50) {
+        console.log('Team A (BLUE) WINS !')
         alert('Team A (BLUE) WINS !')
-      } else if (counter <= -50) {
+      } else if (this.counter <= -50) {
+        console.log('Team B (RED) WINS !')
         alert('Team B (RED) WINS !')
       }
       
@@ -90,6 +92,15 @@ export default {
       this.startScoreB = 0 - this.$store.state.counter
       console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
       console.log('ini dari button A point B:', this.scoreB + this.startScoreB)
+
+      if (this.counter >= 50) {
+        console.log('Team A (BLUE) WINS !')
+        alert('Team A (BLUE) WINS !')
+      } else if (this.counter <= -50) {
+        console.log('Team B (RED) WINS !')
+        alert('Team B (RED) WINS !')
+      }
+
     }
   },
   computed: mapState([
