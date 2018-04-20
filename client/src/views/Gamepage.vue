@@ -11,16 +11,19 @@
         </div>
     </div>
     <div class="progress-tug progress col-md-8 offset-md-2">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: startScoreA + scoreA + '%' }" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: startScoreB + scoreB + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: scoreA + counter + '%'}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: scoreB - counter + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
     </div>
     <!-- <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button> -->
     <!-- <button @click="buttonB()">FIGHT B</button> -->
     <div class="col-md-12">
-
+    <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
+    <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
+  {{ counter }}
     </div>
   </div>
   <div class="d-block d-md-none">
+  {{ counter }}
     <i class="fas fa-plus-square buttonA" v-if="side==='a'" @click="buttonA()"></i>
     <i class="fas fa-plus-square buttonB" v-if="side==='b'" @click="buttonB()"></i>
     <!-- <button @click="buttonA()" v-if="side==='a'"><img id="button" src="../assets/image/button-blue.png" alt=""></button>
@@ -54,6 +57,7 @@ export default {
   },
   created () {
     this.side = localStorage.getItem('side')
+    this.$store.dispatch('getCounter')
   },
   methods: {
     enterRoom () {
@@ -64,6 +68,7 @@ export default {
       // this.scoreB -= 1
       this.$store.dispatch('getCounter')
       this.$store.dispatch('counterA')
+      console.log(this.counter)
       this.startScoreA = this.$store.state.counter
       this.startScoreB = 0 - this.$store.state.counter
       console.log('ini dari button A point A:', this.scoreA + this.startScoreA)
