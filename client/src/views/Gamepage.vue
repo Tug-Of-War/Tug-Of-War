@@ -105,7 +105,7 @@ export default {
 }
 
 img {
-    height: auto; 
+    height: auto;
     width: auto;
 }
 
