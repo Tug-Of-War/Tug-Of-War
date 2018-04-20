@@ -51,7 +51,7 @@ export default {
   methods: {
     add_room () {
       let newRoom = this.newRoomName
-      this.$store.commit('addRoom', newRoom)
+      this.$store.dispatch('addRoom', newRoom)
     }
   }
 }

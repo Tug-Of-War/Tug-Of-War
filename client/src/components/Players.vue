@@ -3,7 +3,7 @@
     <div class="card-header">Lobby</div>
     <div class="card-body">
       <ul class="list-group">
-        <li class="list-group-item" v-for="(user, index) in users" :key="index">{{user.nickname}}</li>
+        <li class="list-group-item" v-for="(user, index) in allPlayers" :key="index">{{user.username}}</li>
       </ul>
     </div>
   </div>
@@ -16,7 +16,7 @@ export default {
   name: 'player',
   computed: mapState([
     // map this.count to store.state.count
-    'users'
+    'allPlayers'
   ])
 }
 </script>
