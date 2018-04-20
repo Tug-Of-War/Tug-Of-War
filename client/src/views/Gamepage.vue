@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="progress-tug progress col-md-8 offset-md-2">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: scoreA + '%' }" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: scoreB + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="{ width: startScoreA + scoreA + '%' }" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" :style="{ width: startScoreB + scoreB + '%' }" aria-valuenow="50" aria-valuemin="100" aria-valuemax="0"></div>
     </div>
     <!-- <button @click="buttonA()"><i class="fa fa-plus-circle" type="" ></i></button> -->
     <!-- <button @click="buttonB()">FIGHT B</button> -->
@@ -33,6 +33,8 @@ export default {
   data () {
     return {
       nickname: '',
+      startScoreA: 0,
+      startScoreB: 0,
       scoreA: 50,
       scoreB: 50,
       statusWiggle: true,
@@ -77,7 +79,7 @@ export default {
 }
 
 img {
-    height: auto; 
+    height: auto;
     width: auto;
 }
 
@@ -113,6 +115,5 @@ img {
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-
 
 </style>
