@@ -151,7 +151,7 @@ export default new Vuex.Store({
           childData.member = 1
           getrooms.push(childData)
         })
-        console.log('ini dari actions', getrooms)
+        // console.log('ini dari actions', getrooms)
         context.commit('getAllRooms', getrooms)
         getrooms = []
       })
@@ -187,14 +187,11 @@ export default new Vuex.Store({
         member: getRoomData.member + 1
       })
       firebase.database().ref('allrooms/' + groupName).once('value', function (snapshot) {
-        console.log(snapshot.val())
         context.commit('updatedRoom', snapshot.val())
       })
     },
     chooseTeam: function (context, payload) {
-      console.log(payload, 'ini hasilnya')
       firebase.database().ref('allrooms/' + payload.room).once('value', function (snapshot) {
-        console.log(snapshot.val(), 'in pa')
         if (payload.side === 'a') {
           let newArray = snapshot.val().a
           newArray.push(payload.username)
@@ -213,26 +210,26 @@ export default new Vuex.Store({
       })
     },
     setTeamA: function (context, payload) {
-      console.log('weeeeee', payload)
+      // console.log('weeeeee', payload)
       firebase.database().ref('/allrooms/' + payload.room + '/a').on('value', function (snapshot) {
         let teamA = []
-        console.log('wuuuuuu', snapshot.val())
+        // console.log('wuuuuuu', snapshot.val())
         snapshot.forEach((childSnapshot) => {
           teamA.push(childSnapshot)
         })
-        console.log('weeqqqqqq', teamA)
+        // console.log('weeqqqqqq', teamA)
         context.commit('setTeamA', teamA)
       })
     },
     setTeamB: function (context, payload) {
-      console.log('weeeeee', payload)
+      // console.log('weeeeee', payload)
       firebase.database().ref('/allrooms/' + payload.room + '/b').on('value', function (snapshot) {
         let teamB = []
-        console.log('wuuuuuu', snapshot.val())
+        // console.log('wuuuuuu', snapshot.val())
         snapshot.forEach((childSnapshot) => {
           teamB.push(childSnapshot)
         })
-        console.log('weeqqqqqq', teamB)
+        // console.log('weeqqqqqq', teamB)
         context.commit('setTeamB', teamB)
       })
     }

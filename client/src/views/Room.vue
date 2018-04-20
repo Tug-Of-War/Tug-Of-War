@@ -66,9 +66,11 @@ export default {
           side: 'a',
           room: getRoom
         }
+        console.log('ini buat liat beda join create', newMember)
         this.$store.dispatch('setTeamA', newMember)
         this.$store.dispatch('setTeamB', newMember)
         this.$store.dispatch('chooseTeam', newMember)
+        this.checkPlayers()
       } else {
         this.team2.push(getUser)
         this.choose_team = false
@@ -80,6 +82,7 @@ export default {
         this.$store.dispatch('setTeamA', newMember)
         this.$store.dispatch('setTeamB', newMember)
         this.$store.dispatch('chooseTeam', newMember)
+        this.checkPlayers()
       }
     },
     truncateName: function (name) {
@@ -89,13 +92,27 @@ export default {
       } else {
         return name
       }
+    },
+    checkPlayers: function () {
+      let _this = this
+      console.log(this.$store.state.teamA, 'keprettttt')
+      console.log(this.$store.state.teamB, 'kesaddasdasadsdsdsas')
+      let playersTotal = this.$store.state.teamA.length + this.$store.state.teamB.length
+      console.log(playersTotal, ' in itotal playerrssss')
+      if (playersTotal >= 4) {
+        console.log('sudah masuk')
+        this.start_game = true
+        setTimeout(function () {
+          _this.$router.push('/gamepage')
+        }, 5000)
+      }
     }
   },
   created: function () {
-    if (this.team1.length === 5) {
+    if (this.team1.length === 2) {
       this.team2.push(this.getUser)
       this.choose_team = false
-    } else if (this.team2.length === 5) {
+    } else if (this.team2.length === 2) {
       this.team1.push(this.getUser)
       this.choose_team = false
     }
@@ -103,8 +120,9 @@ export default {
   watch: {
     team1: function () {
       let _this = this
+      console.log(this.$store.state.teamA, 'ini team A')
       let playersTotal = this.team1.length + this.team2.length
-      if (playersTotal === 10) {
+      if (playersTotal >= 4) {
         this.start_game = true
         setTimeout(function () {
           _this.$router.push('/gamepage')
@@ -114,7 +132,7 @@ export default {
     team2: function () {
       let _this = this
       let playersTotal = this.team2.length + this.team1.length
-      if (playersTotal === 10) {
+      if (playersTotal >= 4) {
         this.start_game = true
         setTimeout(function () {
           _this.$router.push('/gamepage')

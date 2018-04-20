@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     join_grup (group) {
+      console.log(group, 'nih liat')
       localStorage.setItem('ruangan', group.names)
       this.$router.push('/room')
     },
@@ -39,7 +40,9 @@ export default {
   },
   computed: mapState([
     // map this.count to store.state.count
-    'allRooms'
+    'allRooms',
+    'teamA',
+    'teamB'
   ]),
   watch: {
     isFull () {
